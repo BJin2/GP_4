@@ -546,7 +546,7 @@ GameObject:
   - component: {fileID: 27521099}
   - component: {fileID: 27521101}
   - component: {fileID: 27521100}
-  m_Layer: 5
+  m_Layer: 2
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3945,7 +3945,7 @@ GameObject:
   - component: {fileID: 564267405}
   - component: {fileID: 564267407}
   - component: {fileID: 564267406}
-  m_Layer: 5
+  m_Layer: 2
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4328,7 +4328,7 @@ GameObject:
   - component: {fileID: 637833005}
   - component: {fileID: 637833007}
   - component: {fileID: 637833006}
-  m_Layer: 5
+  m_Layer: 2
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7448,7 +7448,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 0.27713105, b: 0, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -8488,7 +8488,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 0.27713105, b: 0, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -8948,7 +8948,7 @@ GameObject:
   - component: {fileID: 1344071625}
   - component: {fileID: 1344071627}
   - component: {fileID: 1344071626}
-  m_Layer: 5
+  m_Layer: 2
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9595,7 +9595,7 @@ GameObject:
   - component: {fileID: 1436773154}
   - component: {fileID: 1436773156}
   - component: {fileID: 1436773155}
-  m_Layer: 5
+  m_Layer: 2
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12666,7 +12666,7 @@ GameObject:
   - component: {fileID: 1999136674}
   - component: {fileID: 1999136676}
   - component: {fileID: 1999136675}
-  m_Layer: 5
+  m_Layer: 2
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13104,7 +13104,7 @@ Camera:
   m_Depth: 1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 32
+    m_Bits: 36
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -13252,7 +13252,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 0.27713105, b: 0, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []

@@ -8,7 +8,7 @@ public class CameraMove : MonoBehaviour
 	[SerializeField] private Transform follow;
 
 	private float speed_rotate = 0.0f;
-	private float speed_move = 0.0f;
+	//private float speed_move = 0.0f;
 	private float angleLeft = 0.0f;
 	private float rotDir = 0.0f;
 

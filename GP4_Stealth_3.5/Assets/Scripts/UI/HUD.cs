@@ -6,6 +6,9 @@ using UnityEngine.UI;
 
 public class HUD : MonoBehaviour
 {
+	private static HUD instance;
+	public static HUD Instance { get { return instance; } }
+
 	private RectTransform gameOver = null;
 	private Image blackScreen = null;
 	private Image bloodyScreen = null;
@@ -18,8 +21,11 @@ public class HUD : MonoBehaviour
 	private Text timer_sec_dec = null;
 	private float timerTime = 0.0f;
 
-	private static HUD instance;
-	public static HUD Instance { get { return instance; } }
+	private Text[] initials;
+	public static string[] alphabet = { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z" };
+	private int[] indices = { 0, 0, 0 };
+
+	
 
 	private bool isGameOver = false;
 	private float blackAlpha = 0.0f;
@@ -41,6 +47,12 @@ public class HUD : MonoBehaviour
 		timer_min = transform.Find("Timer_Min").GetComponent<Text>();
 		timer_sec = transform.Find("Timer_Sec").GetComponent<Text>();
 		timer_sec_dec = transform.Find("Timer_Sec_Dec").GetComponent<Text>();
+
+		initials = new Text[3];
+		for (int i = 0; i < initials.Length; i++)
+		{
+			initials[i] = rank.transform.Find("Initial_" + i.ToString()).GetComponent<Text>();
+		}
 	}
 
 	private void Start()
@@ -69,6 +81,22 @@ public class HUD : MonoBehaviour
 
 		UpdateText();
 	}
+
+	public void Up(int i)
+	{
+		indices[i]++;
+		indices[i] %= alphabet.Length;
+		initials[i].text = alphabet[indices[i]];
+	}
+	public void Down(int i)
+	{
+		indices[i]--;
+		if (indices[i] < 0)
+			indices[i] = (alphabet.Length - 1);
+
+		initials[i].text = alphabet[indices[i]];
+	}
+
 	private void UpdateText()
 	{
 		timerTime += Time.deltaTime;
