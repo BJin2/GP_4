@@ -24,6 +24,8 @@ public class Enemy : MonoBehaviour
 	private Transform rightPivot = null;
 	private Transform centerPivot = null;
 	private Transform rayGoal = null;
+	private Transform rayGoal_1 = null;
+	private Transform rayGoal_2 = null;
 
 	private Transform target = null;
 	private Vector3 originalPosition;
@@ -50,6 +52,8 @@ public class Enemy : MonoBehaviour
 		rightPivot = arrow.Find("RightPivot");
 		centerPivot = arrow.Find("CenterPivot");
 		rayGoal = arrow.Find("RayRange");
+		rayGoal_1 = arrow.Find("RayRange_1");
+		rayGoal_2 = arrow.Find("RayRange_2");
 		originalPosition = transform.position;
 	}
 	private void Update()
@@ -136,7 +140,15 @@ public class Enemy : MonoBehaviour
 		RaycastHit hit_center = new RaycastHit();
 		if (DetectPlayer(leftPivot.position, rayGoal.position, ref hit_left, Color.red) ||
 			DetectPlayer(rightPivot.position, rayGoal.position, ref hit_right, Color.blue) ||
-			DetectPlayer(centerPivot.position, rayGoal.position, ref hit_center, Color.green))
+			DetectPlayer(centerPivot.position, rayGoal.position, ref hit_center, Color.green) ||
+
+			DetectPlayer(leftPivot.position, rayGoal_1.position, ref hit_left, Color.red) ||
+			DetectPlayer(rightPivot.position, rayGoal_1.position, ref hit_right, Color.blue) ||
+			DetectPlayer(centerPivot.position, rayGoal_1.position, ref hit_center, Color.green) ||
+
+			DetectPlayer(leftPivot.position, rayGoal_2.position, ref hit_left, Color.red) ||
+			DetectPlayer(rightPivot.position, rayGoal_2.position, ref hit_right, Color.blue) ||
+			DetectPlayer(centerPivot.position, rayGoal_2.position, ref hit_center, Color.green))
 		{
 			if (currentState != State.Chasing)
 			{
