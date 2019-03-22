@@ -23,34 +23,17 @@ public class MainMenu : MonoBehaviour
 	public void StartGame()
 	{
 		AudioManager.Instance.PlayButton();
-		StartCoroutine("startGame");
-	}
-	IEnumerator startGame()
-	{
-		yield return new WaitForSeconds(interval);
-		SceneManager.LoadScene("level_01");
+		StartCoroutine("SceneChange", "level_01");
 	}
 	public void BackToMainMenu()
 	{
 		AudioManager.Instance.PlayButton();
-		StartCoroutine("backToMainMenu");
-	}
-	IEnumerator backToMainMenu()
-	{
-		yield return new WaitForSeconds(interval);
-		mainMenu.SetActive(true);
-		leaderboard.SetActive(false);
+		StartCoroutine("ScreenChange", true);
 	}
 	public void GoToLeaderboard()
 	{
 		AudioManager.Instance.PlayButton();
-		StartCoroutine("goToLeaderboard");
-	}
-	IEnumerator goToLeaderboard()
-	{
-		yield return new WaitForSeconds(interval);
-		mainMenu.SetActive(false);
-		leaderboard.SetActive(true);
+		StartCoroutine("ScreenChange", false);
 	}
 	public void ExitGame()
 	{
@@ -61,5 +44,16 @@ public class MainMenu : MonoBehaviour
 	{
 		yield return new WaitForSeconds(interval);
 		Application.Quit();
+	}
+	IEnumerator SceneChange(string sceneName)
+	{
+		yield return new WaitForSecondsRealtime(interval);
+		SceneManager.LoadScene(sceneName);
+	}
+	IEnumerator ScreenChange(bool isMainMenu)
+	{
+		yield return new WaitForSeconds(interval);
+		mainMenu.SetActive(isMainMenu);
+		leaderboard.SetActive(!isMainMenu);
 	}
 }

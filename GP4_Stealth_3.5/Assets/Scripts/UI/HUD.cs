@@ -79,7 +79,8 @@ public class HUD : MonoBehaviour
 			bloodyScreen.color = new Color(1, 1, 1, bloodyAlpha);
 		}
 
-		UpdateText();
+		timerTime += Time.deltaTime;
+		UpdateText(timerTime);
 	}
 
 	public void Up(int i)
@@ -97,25 +98,48 @@ public class HUD : MonoBehaviour
 		initials[i].text = alphabet[indices[i]];
 	}
 
-	private void UpdateText()
+	private void UpdateText(float totalTime)
 	{
-		timerTime += Time.deltaTime;
-
-		int minute = (int)timerTime / 60;
+		int minute = (int)totalTime / 60;
 		string minute_text = string.Format("{0:00}", minute);
 		timer_min.text = minute_text;
 
-		int second = (int)timerTime % 60;
+		int second = (int)totalTime % 60;
 		
 		string second_text = string.Format("{0:00}", second);
 		timer_sec.text = second_text;
 
-		float second_decimal = timerTime%60.0f - second;
+		float second_decimal = totalTime % 60.0f - second;
 		second_decimal *= 100;
 		string second_dec_text = string.Format("{0:00}", second_decimal);
 		timer_sec_dec.text = second_dec_text;
 	}
 	
+	
+	public bool CheckRanking()// Compare player's result with existing record
+	{
+		return true;
+	}
+	public void TurnOnRankingUpdate()
+	{
+		rank.gameObject.SetActive(true);
+	}
+	public void UpdateRanking()//Save player's rank
+	{
+
+	}
+
+//Functions for button
+	public void WinReplay()
+	{
+		UpdateRanking();
+		Replay();
+	}
+	public void WinToMenu()
+	{
+		UpdateRanking();
+		ToMenu();
+	}
 	public void Pause()
 	{
 		Time.timeScale = 0.0f;
@@ -128,36 +152,6 @@ public class HUD : MonoBehaviour
 		pause.gameObject.SetActive(false);
 		AudioManager.Instance.PlayButton();
 	}
-	public void Win()
-	{
-		Debug.Log("win");
-		Time.timeScale = 0.0f;
-		win.gameObject.SetActive(true);
-		if (CheckRanking())
-			TurnOnRankingUpdate();
-	}
-	public bool CheckRanking()
-	{
-		return true;
-	}
-	public void TurnOnRankingUpdate()
-	{
-		rank.gameObject.SetActive(true);
-	}
-	public void UpdateRanking()
-	{
-
-	}
-	public void WinReplay()
-	{
-		UpdateRanking();
-		Replay();
-	}
-	public void WinToMenu()
-	{
-		UpdateRanking();
-		ToMenu();
-	}
 	public void Replay()
 	{
 		AudioManager.Instance.PlayButton();
@@ -169,12 +163,7 @@ public class HUD : MonoBehaviour
 		StartCoroutine("SceneChange", "main_menu");
 	}
 
-	IEnumerator SceneChange(string sceneName)
-	{
-		yield return new WaitForSecondsRealtime(interval);
-		Time.timeScale = 1.0f;
-		SceneManager.LoadScene(sceneName);
-	}
+//Functions for state change
 	public void Pickup()
 	{
 		keyIndicator.gameObject.SetActive(true);
@@ -185,5 +174,21 @@ public class HUD : MonoBehaviour
 		isGameOver = true;
 		gameOver.gameObject.SetActive(true);
 		AudioManager.Instance.PlayGameOver();
+	}
+	public void Win()
+	{
+		Debug.Log("win");
+		Time.timeScale = 0.0f;
+		win.gameObject.SetActive(true);
+		if (CheckRanking())
+			TurnOnRankingUpdate();
+	}
+
+
+	IEnumerator SceneChange(string sceneName)
+	{
+		yield return new WaitForSecondsRealtime(interval);
+		Time.timeScale = 1.0f;
+		SceneManager.LoadScene(sceneName);
 	}
 }

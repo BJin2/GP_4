@@ -90,6 +90,7 @@ public class Enemy : MonoBehaviour
 			#endregion
 			#region Turning
 			case (int)State.Turning:
+				/*/
 				if (anim.GetCurrentAnimatorStateInfo(0).IsName("Right") ||
 					anim.GetCurrentAnimatorStateInfo(0).IsName("Left"))
 				{
@@ -110,14 +111,29 @@ public class Enemy : MonoBehaviour
 					transform.Rotate(0,rotateDir * 90, 0);
 					currentState = State.Looking;
 				}
+				/*/
+				if (anim.GetCurrentAnimatorStateInfo(0).IsName("Right") ||
+					anim.GetCurrentAnimatorStateInfo(0).IsName("Left"))
+				{
+					rotateSpeed = 1.0f/(anim.GetCurrentAnimatorStateInfo(0).length/90.0f);
+					transform.Rotate(0, rotateDir * rotateSpeed * Time.deltaTime, 0);
+				}
+				else
+				{
+					currentState = State.Looking;
+				}
+				//*/
 				break;
 			#endregion Turning
+			#region Chasing
 			case (int)State.Chasing:
 				speed = 1.0f;
 				// move to player
 				transform.LookAt(new Vector3(target.position.x, transform.position.y, target.position.z));
 				transform.Translate(Vector3.forward * speed * Time.deltaTime);
 				break;
+			#endregion
+			#region Retreating
 			case (int)State.Retreating:
 				speed = 0.3f;
 				transform.LookAt(originalPosition);
@@ -130,6 +146,7 @@ public class Enemy : MonoBehaviour
 				}
 				//timer or position -> back to looking
 				break;
+			#endregion
 		}
 	}
 
@@ -138,14 +155,16 @@ public class Enemy : MonoBehaviour
 		RaycastHit hit_left = new RaycastHit();
 		RaycastHit hit_right = new RaycastHit();
 		RaycastHit hit_center = new RaycastHit();
-		if (DetectPlayer(leftPivot.position, rayGoal.position, ref hit_left, Color.red) ||
+		// when one of these is true, it means enemy detected the player
+		if (// To center
+			DetectPlayer(leftPivot.position, rayGoal.position, ref hit_left, Color.red) ||
 			DetectPlayer(rightPivot.position, rayGoal.position, ref hit_right, Color.blue) ||
 			DetectPlayer(centerPivot.position, rayGoal.position, ref hit_center, Color.green) ||
-
+			//To left
 			DetectPlayer(leftPivot.position, rayGoal_1.position, ref hit_left, Color.red) ||
 			DetectPlayer(rightPivot.position, rayGoal_1.position, ref hit_right, Color.blue) ||
 			DetectPlayer(centerPivot.position, rayGoal_1.position, ref hit_center, Color.green) ||
-
+			// To Right
 			DetectPlayer(leftPivot.position, rayGoal_2.position, ref hit_left, Color.red) ||
 			DetectPlayer(rightPivot.position, rayGoal_2.position, ref hit_right, Color.blue) ||
 			DetectPlayer(centerPivot.position, rayGoal_2.position, ref hit_center, Color.green))
@@ -158,7 +177,6 @@ public class Enemy : MonoBehaviour
 				anim.SetTrigger("Chasing");
 			}
 			transform.LookAt(new Vector3(target.position.x, transform.position.y, target.position.z));
-			arrow.LookAt(new Vector3(target.position.x, arrow.position.y, target.position.z));
 		}
 		else if (currentState == State.Chasing)
 		{
@@ -166,7 +184,6 @@ public class Enemy : MonoBehaviour
 			aud.Play();
 			target = null;
 			transform.LookAt(originalPosition);
-			arrow.LookAt(new Vector3(originalPosition.x, arrow.position.y, originalPosition.z));
 			currentState = State.Retreating;
 		}
 		else if (anim.GetCurrentAnimatorStateInfo(0).IsName("Running"))
