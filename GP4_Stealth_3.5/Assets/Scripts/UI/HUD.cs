@@ -104,6 +104,7 @@ public class HUD : MonoBehaviour
 	{
 		Debug.Log("win");
 		Time.timeScale = 0.0f;
+		win.gameObject.SetActive(true);
 		if (CheckRanking())
 			TurnOnRankingUpdate();
 	}
@@ -113,6 +114,7 @@ public class HUD : MonoBehaviour
 	}
 	public void TurnOnRankingUpdate()
 	{
+		rank.gameObject.SetActive(true);
 	}
 	public void UpdateRanking()
 	{
