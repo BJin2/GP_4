@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class Pickup : MonoBehaviour
 {
+	private AudioSource aud = null;
+	private void Awake()
+	{
+		aud = gameObject.GetComponent<AudioSource>();
+	}
 	private void OnTriggerEnter(Collider col)
 	{
 		if (col.tag == "Player")
@@ -12,7 +17,11 @@ public class Pickup : MonoBehaviour
 			if (!player.hasKey)
 			{
 				player.hasKey = true;
-				Destroy(gameObject);
+				HUD.Instance.Pickup();
+				gameObject.GetComponent<MeshRenderer>().enabled = false;
+				gameObject.GetComponent<BoxCollider>().enabled = false;
+				aud.Play();
+				Destroy(gameObject,1);
 			}
 		}
 	}

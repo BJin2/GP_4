@@ -15,6 +15,10 @@ public class Enemy : MonoBehaviour
 
 	private Animator anim = null;
 
+	private AudioSource aud = null;
+	[SerializeField]
+	private AudioClip[] clips;
+
 	private Transform arrow = null;
 	private Transform leftPivot = null;
 	private Transform rightPivot = null;
@@ -22,7 +26,6 @@ public class Enemy : MonoBehaviour
 	private Transform rayGoal = null;
 
 	private Transform target = null;
-	[SerializeField]
 	private Vector3 originalPosition;
 
 	private float speed = 1.0f;
@@ -41,6 +44,7 @@ public class Enemy : MonoBehaviour
 	private void Awake()
 	{
 		anim = gameObject.GetComponent<Animator>();
+		aud = gameObject.GetComponent<AudioSource>();
 		arrow = transform.Find("Arrow");
 		leftPivot = arrow.Find("LeftPivot");
 		rightPivot = arrow.Find("RightPivot");
@@ -134,19 +138,27 @@ public class Enemy : MonoBehaviour
 			DetectPlayer(rightPivot.position, rayGoal.position, ref hit_right, Color.blue) ||
 			DetectPlayer(centerPivot.position, rayGoal.position, ref hit_center, Color.green))
 		{
-			currentState = State.Chasing;
-			anim.SetTrigger("Chasing");
-
+			if (currentState != State.Chasing)
+			{
+				aud.clip = clips[0];
+				aud.Play();
+				currentState = State.Chasing;
+				anim.SetTrigger("Chasing");
+			}
 			transform.LookAt(new Vector3(target.position.x, transform.position.y, target.position.z));
 			arrow.LookAt(new Vector3(target.position.x, arrow.position.y, target.position.z));
 		}
-		else if (currentState == State.Chasing || 
-			anim.GetCurrentAnimatorStateInfo(0).IsName("Running"))
+		else if (currentState == State.Chasing)
 		{
+			aud.clip = clips[1];
+			aud.Play();
 			target = null;
 			transform.LookAt(originalPosition);
 			arrow.LookAt(new Vector3(originalPosition.x, arrow.position.y, originalPosition.z));
 			currentState = State.Retreating;
+		}
+		else if (anim.GetCurrentAnimatorStateInfo(0).IsName("Running"))
+		{
 			anim.SetTrigger("Retreating");
 		}
 	}
@@ -173,8 +185,8 @@ public class Enemy : MonoBehaviour
 	{
 		if (col.gameObject.tag == "Player")
 		{
-			Debug.Log("Game Over");
 			Time.timeScale = 0.0f;
+			HUD.Instance.GameOver();
 		}
 	}
 }
