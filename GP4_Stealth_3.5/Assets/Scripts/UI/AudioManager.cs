@@ -44,6 +44,6 @@ public class AudioManager : MonoBehaviour
 	{
 		primaryAud.clip = clips[5];
 		primaryAud.Play();
-		secondaryAud.Pause();
+		//secondaryAud.Pause();
 	}
 }

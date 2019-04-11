@@ -19,6 +19,8 @@ public class MainMenu : MonoBehaviour
 	{
 		mainMenu.SetActive(true);
 		leaderboard.SetActive(false);
+
+		AudioManager.Instance.PlayBGM(3);
 	}
 	public void StartGame()
 	{
