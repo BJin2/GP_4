@@ -4141,9 +4141,9 @@ MonoBehaviour:
   clips:
   - {fileID: 8300000, guid: 8ff700a73e61d8044b1886979f616361, type: 3}
   - {fileID: 8300000, guid: f5ca08ed9cc524444999681b81875615, type: 3}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 8300000, guid: 509a1efe5c51c3b49afdfd0914b678d5, type: 3}
+  - {fileID: 8300000, guid: ea47536da297dac41996e85703cc1720, type: 3}
+  - {fileID: 8300000, guid: 7e902f3cc20cdf04196b3abe3b0b1595, type: 3}
   - {fileID: 8300000, guid: 0bf264986f44c034e89040171d166cc7, type: 3}
 --- !u!4 &1909683539
 Transform:
